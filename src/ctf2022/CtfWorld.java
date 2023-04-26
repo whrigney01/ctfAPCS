@@ -1,6 +1,7 @@
 package ctf2022;
 
 import info.gridworld.actor.ActorWorld;
+import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 
 import java.util.ArrayList;
@@ -86,5 +87,4 @@ public class CtfWorld extends ActorWorld {
     }
 
     public boolean locationClicked(Location loc) { return true; }
-
 }
