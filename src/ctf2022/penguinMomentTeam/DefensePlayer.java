@@ -9,14 +9,14 @@ import java.util.List;
 public class DefensePlayer extends Player {
     public DefensePlayer(Location startLocation) {
         super(startLocation);
-        this.getGrid().put(new Location(24, 11), new Rock());
-        this.getGrid().put(new Location(25, 11), new Rock());
-        this.getGrid().put(new Location(23, 11), new Rock());
-        this.getGrid().put(new Location(24, 9), new Rock());
-        this.getGrid().put(new Location(25, 9), new Rock());
-        this.getGrid().put(new Location(23, 9), new Rock());
-        this.getGrid().put(new Location(25, 10), new Rock());
-        this.getGrid().put(new Location(23, 10), new Rock());
+//        this.getGrid().put(new Location(24, 11), new Rock());
+//        this.getGrid().put(new Location(25, 11), new Rock());
+//        this.getGrid().put(new Location(23, 11), new Rock());
+//        this.getGrid().put(new Location(24, 9), new Rock());
+//        this.getGrid().put(new Location(25, 9), new Rock());
+//        this.getGrid().put(new Location(23, 9), new Rock());
+//        this.getGrid().put(new Location(25, 10), new Rock());
+//        this.getGrid().put(new Location(23, 10), new Rock());
     }
 
     @Override
