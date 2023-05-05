@@ -89,7 +89,9 @@ public class CtfWorld extends ActorWorld {
 
     public boolean locationClicked(Location loc) { return true; }
 
+    /*
     public void put(Location loc, Actor act){
         super(act, loc);
     }
+    */
 }
