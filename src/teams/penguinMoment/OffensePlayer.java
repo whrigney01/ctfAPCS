@@ -13,6 +13,7 @@ public class OffensePlayer extends Player {
 		super(startLocation);
 	}
 
+
 	public Location getMoveLocation() {
 		boolean hasFlagStatic = false;
 		ArrayList<Player> team = getMyTeam().getPlayers();
