@@ -6,17 +6,20 @@ import teams.penguinMoment.PenguinMomentTeam;
 import teams.redSampleTeam.RedSampleTeam;
 
 import javax.swing.*;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class CTFRunner {
 
     public static void main(String[] args) throws InterruptedException {
 //        Uncomment this to prevent any output from being printed to the console (speeds up performance)
 
-//        System.setOut(new PrintStream(new OutputStream() {
-//            public void write(int b) {
-//                //DO NOTHING
-//            }
-//        }));
+        System.setOut(new PrintStream(new OutputStream() {
+            public void write(int b) {
+                //DO NOTHING
+
+            }
+        }));
 
         // create two teams
         Team a = new BlueSampleTeam();
