@@ -201,7 +201,7 @@ public final class CTFWorld extends ActorWorld {
     }
 
     public boolean locationClicked(Location loc) {
-        return true;
+        return false;
     }
 
     /**
