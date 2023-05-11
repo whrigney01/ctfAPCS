@@ -8,13 +8,19 @@ import java.util.ArrayList;
 
 public class OffensePlayer extends Player {
 	private Location flagGo;
+	private Location oldLoc;
+	private Location oldOldLoc;
+	private int count = 0;
 
 	public OffensePlayer(Location startLocation) {
 		super(startLocation);
+		oldLoc = new Location(-1,-1);
+		oldOldLoc = new Location(-1,-1);
 	}
 
 
 	public Location getMoveLocation() {
+		count++;
 		boolean hasFlagStatic = false;
 		ArrayList<Player> team = getMyTeam().getPlayers();
 		for (int i = 0; i < team.size(); i++) {
@@ -35,12 +41,16 @@ public class OffensePlayer extends Player {
 			} else {
 				int dir = this.getLocation().getDirectionToward(flagGo);
 				int negPos = -1;
-				for (int i = 0; i < 5; i++) {
+				for (int i = 0; i < 7; i++) {
 					dir += 45 * i * negPos;
 					negPos *= -1;
 					Location adjLoc = this.getLocation().getAdjacentLocation(dir);
 					if (this.getGrid().isValid(adjLoc)) {
-						if (this.getGrid().get(adjLoc) == null) {
+						if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc)) {
+							if(count>1){
+								oldOldLoc = oldLoc;
+							}
+							oldLoc = this.getLocation();
 							return adjLoc;
 						}
 					}
@@ -60,12 +70,16 @@ public class OffensePlayer extends Player {
 				} else {
 					int dir = this.getLocation().getDirectionToward(this.getOtherTeam().getFlag().getLocation());
 					int negPos = -1;
-					for (int i = 0; i < 5; i++) {
+					for (int i = 0; i < 7; i++) {
 						dir += 45 * i * negPos;
 						negPos *= -1;
 						Location adjLoc = this.getLocation().getAdjacentLocation(dir);
 						if (this.getGrid().isValid(adjLoc)) {
-							if (this.getGrid().get(adjLoc) == null) {
+							if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc)) {
+								if(count>1){
+									oldOldLoc = oldLoc;
+								}
+								oldLoc = this.getLocation();
 								return adjLoc;
 							}
 						}
