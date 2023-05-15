@@ -7,13 +7,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DefensePlayer extends Player {
-
-	public DefensePlayer(Location startLocation) {
+	private Location locto;
+	private int num;
+	public DefensePlayer(Location startLocation, int num) {
 		super(startLocation);
+		this.locto = startLocation;
+		this.num = num;
 	}
 
 	public Location getMoveLocation() {
+
+//		if (this.getMyTeam().getSide() == 0){
+//			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() + 5);
+//		}else{
+//			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() - 5);
+//		}
+
 		boolean hasFlagStatic = false;
+
+
 
 		ArrayList<Player> team= getOtherTeam().getPlayers();
 		for (int i = 0; i < team.size(); i++) {
@@ -22,40 +34,32 @@ public class DefensePlayer extends Player {
 			}
 
 		}
-		if(hasFlagStatic){
+		if(hasFlagStatic) {
 			ArrayList<Player> play = this.getOtherTeam().getPlayers();
 			for (int i = 0; i < play.size(); i++) {
 				if (play.get(i).hasFlag()) {
 					return play.get(i).getLocation();
 				}
 			}
+		}else if(this.getLocation().getRow() != locto.getRow() && (locto.getCol() != this.getLocation().getCol() || locto.getCol() + 1 != this.getLocation().getCol() || locto.getCol() -1 != this.getLocation().getCol())){
+				return locto;
 		}else{
-			ArrayList<Location> emp = this.getGrid().getEmptyAdjacentLocations(this.getLocation());
-
-			Location nextLoc = emp.get((int)(Math.random()*emp.size()));
-			if(this.getMyTeam().getFlag().getLocation().getCol() - nextLoc.getCol() - 10 >= 0 && this.getMyTeam().getFlag().getLocation().getRow() - nextLoc.getRow() - 10 >= 0){
-				return  nextLoc;
-			}else{
-				if(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(this.getMyTeam().getFlag().getLocation())) == null){
-					return this.getMyTeam().getFlag().getLocation();
+			if(this.getMyTeam().getSide() == 0){
+				if(this.getLocation().getCol() == this.getMyTeam().getFlag().getLocation().getCol() + 5) {
+					return new Location(this.getLocation().getRow(), this.getLocation().getCol() + 1);
 				}else{
-
-					int dir = this.getLocation().getDirectionToward(this.getMyTeam().getFlag().getLocation());
-					int negPos = -1;
-					for (int i = 0; i < 7; i++) {
-						dir += 45 * i * negPos;
-						negPos *= -1;
-						Location adjLoc = this.getLocation().getAdjacentLocation(dir);
-						if (this.getGrid().isValid(adjLoc)) {
-							if (this.getGrid().get(adjLoc) == null) {
-								return adjLoc;
-							}
-						}
-					}
+					return new Location(this.getLocation().getRow(), this.getLocation().getCol() - 1);
 				}
-
 			}
-	}
+			if(this.getMyTeam().getSide() == 1){
+				if(this.getLocation().getCol() == this.getMyTeam().getFlag().getLocation().getCol() - 5) {
+					return new Location(this.getLocation().getRow(), this.getLocation().getCol() - 1);
+				}else{
+					return new Location(this.getLocation().getRow(), this.getLocation().getCol() + 1);
+				}
+			}
+		}
+
 
 		return this.getLocation();
 	}

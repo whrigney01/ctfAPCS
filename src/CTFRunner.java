@@ -1,6 +1,7 @@
 import ctf.CTFWorld;
 import ctf.Team;
 
+import teams.BadPenguinMoment.BadPenguinMomentTeam;
 import teams.blueSampleTeam.BlueSampleTeam;
 import teams.penguinMoment.PenguinMomentTeam;
 import teams.redSampleTeam.RedSampleTeam;
@@ -22,7 +23,7 @@ public class CTFRunner {
         }));
 
         // create two teams
-        Team a = new BlueSampleTeam();
+        Team a = new BadPenguinMomentTeam();
         Team b = new PenguinMomentTeam();
 
         // build and display a CTFWorld
