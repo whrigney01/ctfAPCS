@@ -19,6 +19,14 @@ public class OffensePlayer extends Player {
 
 
 	public Location getMoveLocation() {
+		ArrayList<Player> ePlayers = this.getOtherTeam().getPlayers();
+		ArrayList<Location> eLocs = new ArrayList<>();
+		for (int j = 0; j < ePlayers.size(); j++) {
+			ArrayList<Location> notOccLocs= ePlayers.get(j).getGrid().getValidAdjacentLocations(ePlayers.get(j).getLocation());
+			for (int i = 0; i < notOccLocs.size(); i++) {
+				eLocs.add(notOccLocs.get(i));
+			}
+		}
 		count++;
 		boolean hasFlagStatic = false;
 		ArrayList<Player> team = getMyTeam().getPlayers();
@@ -40,12 +48,18 @@ public class OffensePlayer extends Player {
 			} else {
 				int dir = this.getLocation().getDirectionToward(flagGo);
 				int negPos = -1;
-				for (int i = 0; i < 7; i++) {
+				for (int i = 0; i < 8; i++) {
 					dir += 45 * i * negPos;
 					negPos *= -1;
 					Location adjLoc = this.getLocation().getAdjacentLocation(dir);
+					boolean enemyAdjacent = false;
+					for (int j = 0; j < eLocs.size(); j++) {
+						if(eLocs.get(j).equals(adjLoc)){
+							enemyAdjacent = true;
+						}
+					}
 					if (this.getGrid().isValid(adjLoc)) {
-						if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc)) {
+						if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc) && !this.getMyTeam().nearFlag(adjLoc) && !enemyAdjacent) {
 							if(count>1){
 								oldOldLoc = oldLoc;
 							}
@@ -69,12 +83,19 @@ public class OffensePlayer extends Player {
 				} else {
 					int dir = this.getLocation().getDirectionToward(this.getOtherTeam().getFlag().getLocation());
 					int negPos = -1;
-					for (int i = 0; i < 7; i++) {
+					for (int i = 0; i < 8; i++) {
 						dir += 45 * i * negPos;
 						negPos *= -1;
 						Location adjLoc = this.getLocation().getAdjacentLocation(dir);
+						boolean enemyAdjacent = false;
+						for (int j = 0; j < eLocs.size(); j++) {
+							if(eLocs.get(j).equals(adjLoc)){
+								enemyAdjacent = true;
+							}
+						}
 						if (this.getGrid().isValid(adjLoc)) {
-							if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc)) {
+							if (this.getGrid().get(adjLoc) == null && !oldLoc.equals(adjLoc) && !oldOldLoc.equals(adjLoc) && !this.getMyTeam().nearFlag(adjLoc) && !enemyAdjacent) {
+
 								if(count>1){
 									oldOldLoc = oldLoc;
 								}
