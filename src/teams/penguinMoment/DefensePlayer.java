@@ -17,11 +17,12 @@ public class DefensePlayer extends Player {
 
 	public Location getMoveLocation() {
 
-//		if (this.getMyTeam().getSide() == 0){
-//			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() + 5);
-//		}else{
-//			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() - 5);
-//		}
+		if (this.getMyTeam().getSide() == 0){
+			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() + 5);
+		} else{
+			locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() - 5);
+		}
+		System.out.println(locto);
 
 		boolean hasFlagStatic = false;
 
@@ -41,8 +42,17 @@ public class DefensePlayer extends Player {
 					return play.get(i).getLocation();
 				}
 			}
-		}else if(this.getLocation().getRow() != locto.getRow() && (locto.getCol() != this.getLocation().getCol() || locto.getCol() + 1 != this.getLocation().getCol() || locto.getCol() -1 != this.getLocation().getCol())){
+		}else if(this.getLocation().getRow() != locto.getRow() && (locto.getCol() != this.getLocation().getCol() || locto.getCol() + 1 != this.getLocation().getCol() || locto.getCol() -1 != this.getLocation().getCol())) {
+			if (!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto)))){
 				return locto;
+			}	else{
+				ArrayList<Location> emptlocs1 = this.getGrid().getEmptyAdjacentLocations(this.getLocation());
+				for (int i = 0; i < emptlocs1.size(); i++) {
+					if(!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(emptlocs1.get(i))))){
+						return emptlocs1.get(i);
+					}
+				}
+			}
 		}else{
 			if(this.getMyTeam().getSide() == 0){
 				if(this.getLocation().getCol() == this.getMyTeam().getFlag().getLocation().getCol() + 5) {
