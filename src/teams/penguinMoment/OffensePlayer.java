@@ -37,9 +37,9 @@ public class OffensePlayer extends Player {
 		}
 		if (flagGo == null) {
 			if (this.getMyTeam().getSide() == 0) {
-				flagGo = new Location((int) (Math.random() * 50), 0);
+				flagGo = new Location((int) (Math.random() * 50), 50);
 			} else {
-				flagGo = new Location((int) (Math.random() * 50), 99);
+				flagGo = new Location((int) (Math.random() * 50), 48);
 			}
 		}
 		if (this.hasFlag()) {
