@@ -9,10 +9,15 @@ import java.util.List;
 public class DefensePlayer extends Player {
 	private Location locto;
 	private int num;
+	private Location oldLoc;
+	private Location oldOldLoc;
+	private int count = 0;
 	public DefensePlayer(Location startLocation, int num) {
 		super(startLocation);
 		this.locto = startLocation;
 		this.num = num;
+		oldLoc = new Location(-1,-1);
+		oldOldLoc = new Location(-1,-1);
 	}
 
 	public Location getMoveLocation() {
@@ -34,6 +39,7 @@ public class DefensePlayer extends Player {
 			}
 
 		}
+		count++;
 		if(hasFlagStatic) {
 			ArrayList<Player> play = this.getOtherTeam().getPlayers();
 			for (int i = 0; i < play.size(); i++) {
@@ -42,7 +48,7 @@ public class DefensePlayer extends Player {
 				}
 			}
 		}else if(this.getLocation().getRow() != locto.getRow() && (locto.getCol() != this.getLocation().getCol() || locto.getCol() + 1 != this.getLocation().getCol() || locto.getCol() -1 != this.getLocation().getCol())) {
-			if (!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto)))){
+			if (!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto))) && this.getGrid().get(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto))) == null){
 				return locto;
 			}	else{
 				int dir = this.getLocation().getDirectionToward(locto);
