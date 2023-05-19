@@ -10,6 +10,8 @@ public class OffensePlayer extends Player {
 	private Location flagGo;
 	private Location oldLoc;
 	private Location oldOldLoc;
+	private boolean reachedFlagGoMoment = false;
+	private boolean wayBack = false;
 	private int count = 0;
 	private int height;
 
