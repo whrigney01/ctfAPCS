@@ -88,4 +88,5 @@ public class DefensePlayer extends Player {
 
 		return this.getLocation();
 	}
+
 }
