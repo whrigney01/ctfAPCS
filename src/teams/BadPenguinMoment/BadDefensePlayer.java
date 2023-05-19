@@ -26,7 +26,6 @@ public class BadDefensePlayer extends Player {
         } else{
             locto = new Location(this.getMyTeam().getFlag().getLocation().getRow() + num, this.getMyTeam().getFlag().getLocation().getCol() - 5);
         }
-        System.out.println(locto);
 
         boolean hasFlagStatic = false;
 
@@ -48,7 +47,7 @@ public class BadDefensePlayer extends Player {
                 }
             }
         }else if(this.getLocation().getRow() != locto.getRow() && (locto.getCol() != this.getLocation().getCol() || locto.getCol() + 1 != this.getLocation().getCol() || locto.getCol() -1 != this.getLocation().getCol())) {
-            if (!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto)))){
+            if (!this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto))) && this.getGrid().get(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(locto))) == null){
                 return locto;
             }	else{
                 int dir = this.getLocation().getDirectionToward(locto);
