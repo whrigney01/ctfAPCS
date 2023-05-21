@@ -15,7 +15,7 @@ public class LurePlayer extends OffensePlayer {
     private static int steps;
 
     public LurePlayer(Location startLocation) {
-        super(startLocation);
+        super(startLocation, 1);
         oldLoc = new Location(-1,-1);
         oldOldLoc = new Location(-1,-1);
 
