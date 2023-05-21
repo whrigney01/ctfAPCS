@@ -23,6 +23,7 @@ public class LurePlayer extends OffensePlayer {
 
     public Location getMoveLocation() {
         steps++;
+        //Every 50 steps make a new random location to pathfind to
         if(steps % 50 == 0){
             if(this.getMyTeam().getSide() == 1) {
                 lurePlace = new Location(((int)(Math.random() * 50)), ((int)(Math.random() * 50)));
@@ -33,6 +34,8 @@ public class LurePlayer extends OffensePlayer {
         if(lurePlace == null){
             lurePlace = new Location(0, Math.abs(99 * (this.getMyTeam().getSide() - 1)));
         }
+
+        //Figures out where other plays are to navigate around them
         ArrayList<Player> ePlayers = this.getOtherTeam().getPlayers();
         ArrayList<Location> eLocs = new ArrayList<>();
         for (int j = 0; j < ePlayers.size(); j++) {
@@ -42,6 +45,7 @@ public class LurePlayer extends OffensePlayer {
             }
         }
         count++;
+        //go to the random location navigating around rocks and players
         if (this.getLocation() != lurePlace) {
             if (this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(lurePlace)) != null) {
 
@@ -71,7 +75,8 @@ public class LurePlayer extends OffensePlayer {
             } else {
                 return lurePlace;
             }
-            return null;
+            return this.getLocation();
+            //If at the random Location, move to the corners until a new location is selected
         } else {
             if (this.getMyTeam().getSide() == 0) {
                 return new Location(0, 98);
