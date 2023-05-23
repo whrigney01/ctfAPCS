@@ -51,21 +51,21 @@ public class OffensePlayer extends Player {
 				hasFlagStatic = true;
 			}
 		}
-		if (flagGo == null) {
+		//if (flagGo == null) {
 			if (this.getMyTeam().getSide() == 0) {
 				if (height == -1) {
-					flagGo = new Location(10, 74);
+					flagGo = new Location(10, this.getOtherTeam().getFlag().getLocation().getCol()-10);
 				}else {
-					flagGo = new Location(40, 74);
+					flagGo = new Location(40, this.getOtherTeam().getFlag().getLocation().getCol()-10);
 				}
 			}else{
 				if(height == -1) {
-					flagGo = new Location(10,25);
+					flagGo = new Location(10,this.getOtherTeam().getFlag().getLocation().getCol()+10);
 				}else{
-					flagGo = new Location(40, 25);
+					flagGo = new Location(40, this.getOtherTeam().getFlag().getLocation().getCol()+10);
 				}
 			}
-		}
+		//}
 		if(this.getGrid().get(flagGo) != null && !(this.getGrid().get(flagGo) instanceof Player)){
 			flagGo = new Location(flagGo.getRow() - 1, flagGo.getCol());
 		}
@@ -123,7 +123,7 @@ public class OffensePlayer extends Player {
 
 			} else {
 				if(!reachedFlagGoMoment) {
-					if (this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(flagGo)) == null) {
+					if (this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(flagGo)) == null && !this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(flagGo)))) {
 						return flagGo;
 					} else {
 						int dir = this.getLocation().getDirectionToward(flagGo);
@@ -151,7 +151,7 @@ public class OffensePlayer extends Player {
 						}
 					}
 				}else{
-					if (this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(this.getOtherTeam().getFlag().getLocation())) == null) {
+					if (this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(this.getOtherTeam().getFlag().getLocation())) == null && !this.getMyTeam().nearFlag(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(flagGo)))) {
 						System.out.println(true);
 						return this.getOtherTeam().getFlag().getLocation();
 					} else {
