@@ -54,25 +54,28 @@ public class OffensePlayer extends Player {
 		if (flagGo == null) {
 			if (this.getMyTeam().getSide() == 0) {
 				if (height == -1) {
-					flagGo = new Location(10, 84);
+					flagGo = new Location(10, 74);
 				}else {
-					flagGo = new Location(40, 84);
+					flagGo = new Location(40, 74);
 				}
 			}else{
 				if(height == -1) {
-					flagGo = new Location(10,15);
+					flagGo = new Location(10,25);
 				}else{
-					flagGo = new Location(40, 15);
+					flagGo = new Location(40, 25);
 				}
 			}
 		}
 		if(this.getGrid().get(flagGo) != null && !(this.getGrid().get(flagGo) instanceof Player)){
 			flagGo = new Location(flagGo.getRow() - 1, flagGo.getCol());
 		}
-
+		if(reachedFlagGoMoment && this.getLocation().equals(flagGo)){
+			wayBack = true;
+		}
 		if(this.getLocation().equals(flagGo)){
 			reachedFlagGoMoment = true;
 		}
+
 		if (this.hasFlag()) {
 			if(!wayBack) {
 				if (this.getGrid().get(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(flagGo))) == null) {
@@ -104,8 +107,10 @@ public class OffensePlayer extends Player {
 			}else {
 				if (this.getMyTeam().getSide() == 1){
 					flagGo = new Location(flagGo.getRow(), 50);
+					wayBack = false;
 				}else{
 					flagGo = new Location(flagGo.getRow(), 48);
+					wayBack = false;
 				}
 			}
 			return this.getLocation();

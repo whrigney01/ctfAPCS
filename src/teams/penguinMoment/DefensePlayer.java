@@ -39,23 +39,25 @@ public class DefensePlayer extends Player {
 			}
 
 		}
-		count++;
 		//If the other team does have the flag go straight to them while navigating around rocks
 		if(hasFlagStatic) {
+			count++;
 			ArrayList<Player> play = this.getOtherTeam().getPlayers();
 			for (int i = 0; i < play.size(); i++) {
 				if (play.get(i).hasFlag()) {
+
 					if(this.getLocation().getAdjacentLocation(this.getLocation().getDirectionToward(play.get(i).getLocation())) == null) {
 						return play.get(i).getLocation();
 					}else{
-						int dir1 = this.getLocation().getDirectionToward(locto);
+						int dir1 = this.getLocation().getDirectionToward(play.get(i).getLocation()	);
+						System.out.println(play.get(i).getLocation());
 						int negPos1 = -1;
 						for (int j = 0; j < 8; j++) {
-							dir1 += 45 * i * negPos1;
+							dir1 += 45 * j * negPos1;
 							negPos1 *= -1;
 							Location adjLoc1 = this.getLocation().getAdjacentLocation(dir1);
 							if (this.getGrid().isValid(adjLoc1)) {
-								if (this.getGrid().get(adjLoc1) == null && !oldLoc.equals(adjLoc1) && !oldOldLoc.equals(adjLoc1) && !this.getMyTeam().nearFlag(adjLoc1)) {
+								if (this.getGrid().get(adjLoc1) == null && !oldLoc.equals(adjLoc1) && !oldOldLoc.equals(adjLoc1)) {
 									if(count>1){
 										oldOldLoc = oldLoc;
 									}
